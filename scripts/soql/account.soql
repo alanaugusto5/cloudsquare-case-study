@@ -1,0 +1,2 @@
+// Leads created by the application flow, most recent first
+SELECT Id, Name, Application_Source__c, CreatedDate FROM Lead ORDER BY CreatedDate DESC LIMIT 20
