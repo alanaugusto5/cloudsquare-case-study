@@ -1,0 +1,120 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:opportunity">
+        <div class="slds-p-around_medium slds-p-top_none">
+            <template if:false={isSubmitted}>
+                <form onsubmit={handleSubmit}>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="text"
+                                name="companyName"
+                                label="Company Name"
+                                value={formData.companyName}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Company Name is required."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="text"
+                                name="federalTaxId"
+                                label="Federal Tax ID"
+                                value={formData.federalTaxId}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Federal Tax ID is required."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="text"
+                                name="firstName"
+                                label="Contact First Name"
+                                value={formData.firstName}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Contact First Name is required."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="text"
+                                name="lastName"
+                                label="Contact Last Name"
+                                value={formData.lastName}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Contact Last Name is required."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="email"
+                                name="email"
+                                label="Email"
+                                value={formData.email}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Email is required."
+                                message-when-type-mismatch="Enter a valid email address."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="tel"
+                                name="phone"
+                                label="Phone"
+                                value={formData.phone}
+                                onchange={handleChange}
+                                required
+                                message-when-value-missing="Phone is required."
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                            <lightning-input
+                                type="number"
+                                name="annualRevenue"
+                                label="Annual Revenue (optional)"
+                                value={formData.annualRevenue}
+                                onchange={handleChange}
+                                formatter="currency"
+                                step="0.01"
+                            ></lightning-input>
+                        </div>
+                    </div>
+
+                    <template if:true={submitError}>
+                        <div class="slds-notify slds-notify_alert slds-theme_error slds-m-top_small" role="alert">
+                            <span>{submitError}</span>
+                        </div>
+                    </template>
+
+                    <div class="slds-m-top_medium slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                        <lightning-button
+                            variant="brand"
+                            type="submit"
+                            label="Submit Application"
+                            disabled={isSubmitDisabled}
+                        ></lightning-button>
+                        <template if:true={isLoading}>
+                            <div class="slds-is-relative spinner-container">
+                                <lightning-spinner alternative-text="Submitting application" size="small"></lightning-spinner>
+                            </div>
+                        </template>
+                    </div>
+                </form>
+            </template>
+
+            <template if:true={isSubmitted}>
+                <div class="slds-notify slds-notify_alert slds-theme_success" role="alert">
+                    <h2 class="slds-text-heading_small">{resultHeading}</h2>
+                    <p class="slds-m-top_x-small">Record Id: <strong>{resultRecordId}</strong></p>
+                </div>
+                <div class="slds-m-top_medium">
+                    <lightning-button label="Submit Another Application" onclick={handleReset}></lightning-button>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

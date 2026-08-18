@@ -1,0 +1,8 @@
+:host {
+    display: block;
+}
+
+.spinner-container {
+    width: 2rem;
+    height: 2rem;
+}
